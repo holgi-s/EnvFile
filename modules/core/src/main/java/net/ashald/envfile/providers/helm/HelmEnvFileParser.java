@@ -36,7 +36,9 @@ public class HelmEnvFileParser implements EnvFileParser {
         if(envs != null) {
             return envs.stream()
                     .filter(this::isValdEntry)
-                    .collect(Collectors.toMap(s -> s.get("name"), s -> s.get("value")));
+                    .collect(Collectors.toMap(
+                            s -> s.get("name"),
+                            s -> s.get("value") != null ? s.get("value") : "" ));
         }
         return Collections.emptyMap();
     }

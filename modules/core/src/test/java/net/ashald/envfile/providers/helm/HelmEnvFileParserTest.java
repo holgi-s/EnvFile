@@ -45,9 +45,39 @@ public class HelmEnvFileParserTest {
     }
 
     @Test
+    public void parseVariableWithNullValue() {
+        val result = PARSER.parse(
+                getFile("test_values_null.yaml")
+        );
+
+        val keys = ImmutableList.copyOf(result.keySet());
+        assertThat(keys, hasSize(3));
+        assertThat(keys, hasItems("NAME_A", "NAME_B", "NAME_C"));
+
+        val values = ImmutableList.copyOf(result.values());
+        assertThat(values, hasSize(3));
+        assertThat(values, hasItems("VALUE_A", "", "VALUE_C"));
+    }
+
+    @Test
+    public void parseTwoSecrets() {
+        val result = PARSER.parse(
+                getFile("test_values_secrets.yaml")
+        );
+
+        val keys = ImmutableList.copyOf(result.keySet());
+        assertThat(keys, hasSize(2));
+        assertThat(keys, hasItems("SECRET_A", "SECRET_B"));
+
+        val values = ImmutableList.copyOf(result.values());
+        assertThat(values, hasSize(2));
+        assertThat(values, hasItems("SECRET_VALUE_A", "SECRET_VALUE_B"));
+    }
+
+    @Test
     public void parseThreeVariablePairsAndSecrets() {
         val result = PARSER.parse(
-                getFile("test_values.yaml")
+                getFile("test_values_and_secrets.yaml")
         );
 
         val keys = ImmutableList.copyOf(result.keySet());

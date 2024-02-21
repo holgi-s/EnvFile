@@ -5,7 +5,7 @@ env:
   - name: "NAME_A"
     value: "VALUE_A"
   - name: "NAME_B"
-    value: "VALUE_B"
+    value:
 #  - name: "NAME_X"
 #    value: "VALUE_XX"
   - name: "NAME_C"
